@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
   let logoWhiteElement = document.querySelector(".logo-white");
   let navDropdownTrigger = document.querySelectorAll(".nav_dropdown_trigger");
   let navbarSingleLink = document.querySelectorAll(".navbar_single_link");
+  let navbarBtnPrimary = document.querySelector(".navbar_btn[navbar-btn='primary']");
+  let navbarBtnSecondary = document.querySelector(".navbar_btn[navbar-btn='secondary']");
   let menuIconLines = document.querySelectorAll(".menu-icon1_line-top, .menu-icon1_line-middle, .menu-icon1_line-bottom");
 
   if (navbarAttribute === "filled") {
@@ -12,16 +14,36 @@ document.addEventListener("DOMContentLoaded", (event) => {
     logoColorElement.style.opacity = "1";
     navDropdownTrigger.forEach((element) => {
       element.style.color = "#444";
-      element.addEventListener("mouseover", function() {
+      element.addEventListener("mouseover", function () {
         element.style.color = "#016789";
       });
-      element.addEventListener("mouseout", function() {
-        element.style.color = "#444";
+      element.addEventListener("mouseout", function () {
+        if (window.scrollY <= 120) {
+          element.style.color = "#FFFFFF";
+        } else {
+          element.style.color = "#444";
+        }
       });
     });
     navbarSingleLink.forEach((element) => {
-      element.style.color = "#444";
+      if (!element.classList.contains("navbar_btn")) {
+        element.style.color = "#444";
+        element.addEventListener("mouseover", function () {
+          element.style.color = "#016789";
+        });
+        element.addEventListener("mouseout", function () {
+          if (window.scrollY <= 120) {
+            element.style.color = "#FFFFFF";
+          } else {
+            element.style.color = "#444";
+          }
+        });
+      }
     });
+    navbarBtnPrimary.style.backgroundColor = "#F1B937";
+    navbarBtnPrimary.style.color = "#444";
+    navbarBtnSecondary.style.backgroundColor = "#F6F7F9";
+    navbarBtnSecondary.style.color = "#444";
     menuIconLines.forEach((element) => {
       element.style.backgroundColor = "#444";
     });
@@ -34,16 +56,36 @@ document.addEventListener("DOMContentLoaded", (event) => {
         logoColorElement.style.opacity = "1";
         navDropdownTrigger.forEach((element) => {
           element.style.color = "#444";
-          element.addEventListener("mouseover", function() {
+          element.addEventListener("mouseover", function () {
             element.style.color = "#016789";
           });
-          element.addEventListener("mouseout", function() {
-            element.style.color = "#444";
+          element.addEventListener("mouseout", function () {
+            if (window.scrollY <= 120) {
+              element.style.color = "#FFFFFF";
+            } else {
+              element.style.color = "#444";
+            }
           });
         });
         navbarSingleLink.forEach((element) => {
-          element.style.color = "#444";
+          if (!element.classList.contains("navbar_btn")) {
+            element.style.color = "#444";
+            element.addEventListener("mouseover", function () {
+              element.style.color = "#016789";
+            });
+            element.addEventListener("mouseout", function () {
+              if (window.scrollY <= 120) {
+                element.style.color = "#FFFFFF";
+              } else {
+                element.style.color = "#444";
+              }
+            });
+          }
         });
+        navbarBtnPrimary.style.backgroundColor = "#F4C65E";
+        navbarBtnPrimary.style.color = "#444";
+        navbarBtnSecondary.style.backgroundColor = "#F6F7F9";
+        navbarBtnSecondary.style.color = "#444";
         menuIconLines.forEach((element) => {
           element.style.backgroundColor = "#444";
         });
@@ -51,11 +93,29 @@ document.addEventListener("DOMContentLoaded", (event) => {
         navbarComponent.style.backgroundColor = "transparent";
         logoColorElement.style.opacity = "0";
         navDropdownTrigger.forEach((element) => {
-          element.style.color = "";
+          element.style.color = "#FFFFFF";
+          element.addEventListener("mouseover", function () {
+            element.style.color = "#016789";
+          });
+          element.addEventListener("mouseout", function () {
+            element.style.color = "#FFFFFF";
+          });
         });
         navbarSingleLink.forEach((element) => {
-          element.style.color = "";
+          if (!element.classList.contains("navbar_btn")) {
+            element.style.color = "#FFFFFF";
+            element.addEventListener("mouseover", function () {
+              element.style.color = "#016789";
+            });
+            element.addEventListener("mouseout", function () {
+              element.style.color = "#FFFFFF";
+            });
+          }
         });
+        navbarBtnPrimary.style.backgroundColor = "";
+        navbarBtnPrimary.style.color = "";
+        navbarBtnSecondary.style.backgroundColor = "";
+        navbarBtnSecondary.style.color = "";
         menuIconLines.forEach((element) => {
           element.style.backgroundColor = "";
         });
