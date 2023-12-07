@@ -1,7 +1,6 @@
 // Event listener for when the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", (event) => {
   // Define all the elements that will be manipulated
-  // These are mostly elements related to the navigation bar and its components
   const elements = {
     navbarAttribute: document.body.getAttribute("navbar-default"), // Attribute of the navbar
     navbarComponent: document.querySelector(".navbar_component_updated"), // The navbar component
@@ -15,25 +14,19 @@ document.addEventListener("DOMContentLoaded", (event) => {
   };
 
   // Function to set styles for an element
-  // This function takes an element and a styles object as parameters
-  // It then applies each style in the styles object to the element
   const setElementStyle = (element, styles) => {
-    for (let style in styles) {
-      element.style[style] = styles[style];
-    }
+    Object.assign(element.style, styles);
   };
 
   // Function to add a hover effect to an element
-  // This function takes an element and a color as parameters
-  // It then adds event listeners for mouseover and mouseout events
   // On mouseover, the color of the element is changed to the provided color
   // On mouseout, the color of the element is changed based on the scroll position
-  const addHoverEffect = (element, color) => {
+  const addHoverEffect = (element, hoverColor, mouseoutColor) => {
     element.addEventListener("mouseover", function () {
-      element.style.color = color;
+      element.style.color = hoverColor;
     });
     element.addEventListener("mouseout", function () {
-      element.style.color = window.scrollY <= 120 ? "#FFFFFF" : "#444";
+      element.style.color = mouseoutColor;
     });
   };
 
@@ -46,12 +39,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
     setElementStyle(elements.logoColorElement, { opacity: "1" });
     elements.navDropdownTrigger.forEach((element) => {
       setElementStyle(element, { color: "#444" });
-      addHoverEffect(element, "#016789");
+      addHoverEffect(element, "#016789", "#444");
     });
     elements.navbarSingleLink.forEach((element) => {
       if (!element.classList.contains("navbar_btn")) {
         setElementStyle(element, { color: "#444" });
-        addHoverEffect(element, "#016789");
+        addHoverEffect(element, "#016789", "#444");
       }
     });
     setElementStyle(elements.navbarBtnPrimary, { backgroundColor: "#F1B937", color: "#444" });
@@ -68,12 +61,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
         setElementStyle(elements.logoColorElement, { transition: "opacity 0.3s ease-in-out", opacity: "1" });
         elements.navDropdownTrigger.forEach((element) => {
           setElementStyle(element, { color: "#444" });
-          addHoverEffect(element, "#016789");
+          addHoverEffect(element, "#016789", "#444");
         });
         elements.navbarSingleLink.forEach((element) => {
           if (!element.classList.contains("navbar_btn")) {
             setElementStyle(element, { color: "#444" });
-            addHoverEffect(element, "#016789");
+            addHoverEffect(element, "#016789", "#444");
           }
         });
         setElementStyle(elements.navbarBtnPrimary, { backgroundColor: "#F4C65E", color: "#444" });
@@ -81,18 +74,18 @@ document.addEventListener("DOMContentLoaded", (event) => {
         elements.menuIconLines.forEach((element) => {
           setElementStyle(element, { backgroundColor: "#444" });
         });
-      } else if (window.scrollY <= 120) {
+      } else if (window.scrollY <= 119) {
         // Apply styles for a scrolled up state
         setElementStyle(elements.navbarComponent, { backgroundColor: "transparent" });
         setElementStyle(elements.logoColorElement, { opacity: "0" });
         elements.navDropdownTrigger.forEach((element) => {
           setElementStyle(element, { color: "#FFFFFF" });
-          addHoverEffect(element, "#016789");
+          addHoverEffect(element, "#FFFFFF", "#FFFFFF");
         });
         elements.navbarSingleLink.forEach((element) => {
           if (!element.classList.contains("navbar_btn")) {
             setElementStyle(element, { color: "#FFFFFF" });
-            addHoverEffect(element, "#016789");
+            addHoverEffect(element, "#FFFFFF", "#FFFFFF");
           }
         });
         setElementStyle(elements.navbarBtnPrimary, { backgroundColor: "", color: "" });
