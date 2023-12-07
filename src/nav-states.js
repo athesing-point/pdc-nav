@@ -93,7 +93,24 @@ document.addEventListener("DOMContentLoaded", (event) => {
         elements.menuIconLines.forEach((element) => {
           setElementStyle(element, { backgroundColor: "" });
         });
-      }
+      } // Add mouseover and mouseout event listeners to each dropdown card
+      const dropdownCards = document.querySelectorAll(".nav_dropdown_card");
+      dropdownCards.forEach((dropdownCard) => {
+        dropdownCard.addEventListener("mouseover", function () {
+          if (dropdownCard.classList.contains("w--open") && (elements.navbarAttribute === "filled" || window.scrollY > 120)) {
+            const dropdownTrigger = dropdownCard.previousElementSibling;
+            dropdownTrigger.style.color = "#016789";
+          }
+        });
+
+        dropdownCard.addEventListener("mouseout", function () {
+          if (dropdownCard.classList.contains("w--open") && (elements.navbarAttribute === "filled" || window.scrollY > 120)) {
+            const dropdownTrigger = dropdownCard.previousElementSibling;
+            const color = elements.navbarAttribute === "filled" || window.scrollY > 120 ? "#444" : "#FFFFFF";
+            dropdownTrigger.style.color = color;
+          }
+        });
+      });
     });
   }
 });
