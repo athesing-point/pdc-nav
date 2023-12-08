@@ -39,6 +39,17 @@ document.addEventListener("DOMContentLoaded", (event) => {
     });
   }
 
+  // Define the buttons and their hover states immediately after they are defined
+  if (elements.navbarAttribute === "filled") {
+    setElementStyle(elements.navbarBtnPrimary, { backgroundColor: "#F4C65D", color: "#444" });
+    setElementStyle(elements.navbarBtnSecondary, { backgroundColor: "#F6F7F9", color: "#444" });
+  } else {
+    setElementStyle(elements.navbarBtnPrimary, { backgroundColor: "transparent", color: "#FFFFFF" });
+    setElementStyle(elements.navbarBtnSecondary, { backgroundColor: "transparent", color: "#FFFFFF" });
+  }
+  buttonHoverStates(elements.navbarBtnPrimary, "#f1b937", "#F4C65D");
+  buttonHoverStates(elements.navbarBtnSecondary, "#ebebeb", "#F6F7F9");
+
   // Check the navbar attribute
   // If it is 'filled', apply certain styles to the elements
   // If it is not 'filled', add a scroll event listener to apply styles based on the scroll position
@@ -56,8 +67,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
         addHoverEffect(element, "#016789", "#444");
       }
     });
-    setElementStyle(elements.navbarBtnPrimary, { backgroundColor: "#F1B937", color: "#444" });
-    setElementStyle(elements.navbarBtnSecondary, { backgroundColor: "#F6F7F9", color: "#444" });
     elements.menuIconLines.forEach((element) => {
       setElementStyle(element, { backgroundColor: "#444" });
     });
@@ -83,10 +92,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
       elements.menuIconLines.forEach((element) => {
         setElementStyle(element, { backgroundColor: "#444" });
       });
-      // Add hover effects to the buttons
-      buttonHoverStates(elements.navbarBtnPrimary, "hoverBgColorForPrimaryButton", "#f1b937");
-      buttonHoverStates(elements.navbarBtnSecondary, "hoverBgColorForSecondaryButton", "#ebebeb");
-    } else if (window.scrollY <= 119) {
+    } else if (window.scrollY <= 119 && elements.navbarAttribute !== "filled") {
       // Apply styles for a scrolled up state
       setElementStyle(elements.navbarComponent, { backgroundColor: "transparent" });
       setElementStyle(elements.logoColorElement, { opacity: "0" });
@@ -100,8 +106,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
           addHoverEffect(element, "#FFFFFF", "#FFFFFF");
         }
       });
-      setElementStyle(elements.navbarBtnPrimary, { backgroundColor: "", color: "" });
-      setElementStyle(elements.navbarBtnSecondary, { backgroundColor: "", color: "" });
+      setElementStyle(elements.navbarBtnPrimary, { backgroundColor: "transparent", color: "#FFFFFF" });
+      setElementStyle(elements.navbarBtnSecondary, { backgroundColor: "transparent", color: "#FFFFFF" });
       elements.menuIconLines.forEach((element) => {
         setElementStyle(element, { backgroundColor: "" });
       });
@@ -127,4 +133,3 @@ document.addEventListener("DOMContentLoaded", (event) => {
     });
   });
 });
-
