@@ -31,24 +31,30 @@ document.addEventListener("DOMContentLoaded", (event) => {
   };
   // // Function to handle button hovers
   function buttonHoverStates(element, hoverBgColor, originalBgColor) {
-    element.addEventListener("mouseover", function () {
+    const mouseoverFunc = function () {
       this.style.backgroundColor = hoverBgColor;
-    });
-    element.addEventListener("mouseout", function () {
+    };
+    const mouseoutFunc = function () {
       this.style.backgroundColor = originalBgColor;
-    });
+    };
+    element.addEventListener("mouseover", mouseoverFunc);
+    element.addEventListener("mouseout", mouseoutFunc);
+    return { mouseoverFunc, mouseoutFunc };
   }
 
+  // Store references to the event listener functions
+  let primaryBtnHoverFuncs, secondaryBtnHoverFuncs;
+
   // Define the buttons and their hover states immediately after they are defined
-  if (elements.navbarAttribute === "filled") {
+  if (elements.navbarAttribute === "filled" || window.scrollY > 120) {
     setElementStyle(elements.navbarBtnPrimary, { backgroundColor: "#F4C65D", color: "#444" });
     setElementStyle(elements.navbarBtnSecondary, { backgroundColor: "#F6F7F9", color: "#444" });
+    primaryBtnHoverFuncs = buttonHoverStates(elements.navbarBtnPrimary, "#f1b937", "#F4C65D");
+    secondaryBtnHoverFuncs = buttonHoverStates(elements.navbarBtnSecondary, "#ebebeb", "#F6F7F9");
   } else {
     setElementStyle(elements.navbarBtnPrimary, { backgroundColor: "transparent", color: "#FFFFFF" });
     setElementStyle(elements.navbarBtnSecondary, { backgroundColor: "transparent", color: "#FFFFFF" });
   }
-  buttonHoverStates(elements.navbarBtnPrimary, "#f1b937", "#F4C65D");
-  buttonHoverStates(elements.navbarBtnSecondary, "#ebebeb", "#F6F7F9");
 
   // Check the navbar attribute
   // If it is 'filled', apply certain styles to the elements
@@ -89,6 +95,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
       });
       setElementStyle(elements.navbarBtnPrimary, { backgroundColor: "#F4C65E", color: "#444" });
       setElementStyle(elements.navbarBtnSecondary, { backgroundColor: "#F6F7F9", color: "#444" });
+      primaryBtnHoverFuncs = buttonHoverStates(elements.navbarBtnPrimary, "#f1b937", "#F4C65D");
+      secondaryBtnHoverFuncs = buttonHoverStates(elements.navbarBtnSecondary, "#ebebeb", "#F6F7F9");
       elements.menuIconLines.forEach((element) => {
         setElementStyle(element, { backgroundColor: "#444" });
       });
@@ -113,6 +121,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
       });
       elements.navbarBtnPrimary.style.backgroundColor = "";
       elements.navbarBtnSecondary.style.backgroundColor = "";
+      elements.navbarBtnPrimary.removeEventListener("mouseover", primaryBtnHoverFuncs.mouseoverFunc);
+      elements.navbarBtnPrimary.removeEventListener("mouseout", primaryBtnHoverFuncs.mouseoutFunc);
+      elements.navbarBtnSecondary.removeEventListener("mouseover", secondaryBtnHoverFuncs.mouseoverFunc);
+      elements.navbarBtnSecondary.removeEventListener("mouseout", secondaryBtnHoverFuncs.mouseoutFunc);
     } // Add mouseover and mouseout event listeners to each dropdown card
     const dropdownCards = document.querySelectorAll(".nav_dropdown_card");
     dropdownCards.forEach((dropdownCard) => {
