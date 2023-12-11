@@ -54,6 +54,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
   } else {
     setElementStyle(elements.navbarBtnPrimary, { backgroundColor: "transparent", color: "#FFFFFF" });
     setElementStyle(elements.navbarBtnSecondary, { backgroundColor: "transparent", color: "#FFFFFF" });
+    primaryBtnHoverFuncs = buttonHoverStates(elements.navbarBtnPrimary, "rgba(255,255,255,0.06)", "transparent");
+    secondaryBtnHoverFuncs = buttonHoverStates(elements.navbarBtnSecondary, "rgba(255,255,255,0.06)", "transparent");
   }
 
   // Check the navbar attribute
