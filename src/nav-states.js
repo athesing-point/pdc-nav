@@ -1,5 +1,4 @@
-// Event listener for when the DOM is fully loaded
-document.addEventListener("DOMContentLoaded", (event) => {
+window.onload = function () {
   // Define all the elements that will be manipulated
   const elements = {
     navbarAttribute: document.body.getAttribute("navbar-default"), // Attribute of the navbar
@@ -12,6 +11,15 @@ document.addEventListener("DOMContentLoaded", (event) => {
     navbarBtnSecondary: document.querySelector(".navbar_btn[navbar-btn='secondary']"), // The secondary button in the navbar
     menuIconLines: document.querySelectorAll(".menu-icon1_line-top, .menu-icon1_line-middle, .menu-icon1_line-bottom"), // The lines in the menu icon
   };
+
+  // Check if the navbar component exists
+  if (!elements.navbarComponent) {
+    console.log("No Nav Found.");
+    return;
+  }
+
+  // Set the navbar opacity to 1
+  elements.navbarComponent.style.opacity = "1";
 
   // Function to set styles for an element
   const setElementStyle = (element, styles) => {
@@ -146,4 +154,4 @@ document.addEventListener("DOMContentLoaded", (event) => {
       });
     });
   });
-});
+};
