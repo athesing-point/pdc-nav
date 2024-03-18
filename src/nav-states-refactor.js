@@ -1,70 +1,4 @@
-// Constants for repeated values
-const FILLED = "filled";
-const SCROLL_THRESHOLD = 120;
-const COLORS = {
-  primary: "#F4C65D",
-  secondary: "#F6F7F9",
-  hoverPrimary: "#f1b937",
-  hoverSecondary: "#ebebeb",
-  default: "#444",
-  white: "#FFFFFF",
-  transparent: "transparent",
-};
-
-// Configuration object for styles
-const STYLES = {
-  filled: {
-    navbarComponent: { backgroundColor: COLORS.white },
-    logoColorElement: { opacity: "1" },
-    navDropdownTrigger: { color: COLORS.default },
-    navbarSingleLink: { color: COLORS.default },
-    navbarBtnPrimary: { backgroundColor: COLORS.primary, color: COLORS.default },
-    navbarBtnSecondary: { backgroundColor: COLORS.secondary, color: COLORS.default },
-    menuIconLines: { backgroundColor: COLORS.default },
-  },
-  transparent: {
-    navbarComponent: { backgroundColor: COLORS.transparent },
-    logoColorElement: { opacity: "0" },
-    navDropdownTrigger: { color: COLORS.white },
-    navbarSingleLink: { color: COLORS.white },
-    navbarBtnPrimary: { backgroundColor: COLORS.transparent, color: COLORS.white },
-    navbarBtnSecondary: { backgroundColor: COLORS.transparent, color: COLORS.white },
-    menuIconLines: { backgroundColor: "" },
-  },
-};
-
-// Function to set styles for an element
-const setElementStyle = (element, styles) => {
-  Object.assign(element.style, styles);
-};
-
-// Function to add a hover effect to an element
-const addHoverEffect = (element, hoverColor, mouseoutColor) => {
-  element.addEventListener("mouseover", () => (element.style.color = hoverColor));
-  element.addEventListener("mouseout", () => (element.style.color = mouseoutColor));
-};
-
-// Function to handle button hovers
-function buttonHoverStates(element, hoverBgColor, originalBgColor) {
-  const mouseoverFunc = () => (element.style.backgroundColor = hoverBgColor);
-  const mouseoutFunc = () => (element.style.backgroundColor = originalBgColor);
-  element.addEventListener("mouseover", mouseoverFunc);
-  element.addEventListener("mouseout", mouseoutFunc);
-  return { mouseoverFunc, mouseoutFunc };
-}
-
-// Function to apply styles based on the navbar attribute or scroll position
-function applyStyles(elements, navbarAttribute, scrollY) {
-  const isFilled = navbarAttribute === FILLED || scrollY > SCROLL_THRESHOLD;
-  const styles = isFilled ? STYLES.filled : STYLES.transparent;
-  for (const elementName in styles) {
-    setElementStyle(elements[elementName], styles[elementName]);
-  }
-  return isFilled;
-}
-
-// Event listener for when the DOM is fully loaded
-document.addEventListener("DOMContentLoaded", (event) => {
+window.onload = function () {
   // Define all the elements that will be manipulated
   const elements = {
     navbarAttribute: document.body.getAttribute("navbar-default"), // Attribute of the navbar
@@ -75,28 +9,149 @@ document.addEventListener("DOMContentLoaded", (event) => {
     navbarSingleLink: document.querySelectorAll(".navbar_single_link"), // The single links in the navbar
     navbarBtnPrimary: document.querySelector(".navbar_btn[navbar-btn='primary']"), // The primary button in the navbar
     navbarBtnSecondary: document.querySelector(".navbar_btn[navbar-btn='secondary']"), // The secondary button in the navbar
-    menuIconLines: document.querySelectorAll(".menu-icon1_line-top, .menu-icon1_line-middle, .menu-icon1_line-bottom"), // The lines in the menu icon
+    menuIconLines: document.querySelectorAll(".menu-icon1_line-top, .menu-icon1_line-middle, .menu-icon1_line-bottom"), // The lines in the menu icon with white-icon class
   };
 
-  // Apply initial styles based on the navbar attribute or scroll position
-  let isFilled = applyStyles(elements, elements.navbarAttribute, window.scrollY);
+  // Check if the navbar component exists
+  if (!elements.navbarComponent) {
+    console.log("No Nav Found.");
+    return;
+  }
 
-  // Add event listeners for hover effects
-  elements.navDropdownTrigger.forEach((element) => addHoverEffect(element, COLORS.primary, isFilled ? COLORS.default : COLORS.white));
-  elements.navbarSingleLink.forEach((element) => addHoverEffect(element, COLORS.primary, isFilled ? COLORS.default : COLORS.white));
-  buttonHoverStates(elements.navbarBtnPrimary, COLORS.hoverPrimary, isFilled ? COLORS.primary : COLORS.transparent);
-  buttonHoverStates(elements.navbarBtnSecondary, COLORS.hoverSecondary, isFilled ? COLORS.secondary : COLORS.transparent);
+  // Set the navbar opacity to 1
+  elements.navbarComponent.style.opacity = "1";
 
-  // Event listener for when the window is scrolled
-  window.addEventListener("scroll", () => {
-    const newIsFilled = applyStyles(elements, elements.navbarAttribute, window.scrollY);
-    if (newIsFilled !== isFilled) {
-      // Update hover effects if the filled state has changed
-      elements.navDropdownTrigger.forEach((element) => addHoverEffect(element, COLORS.primary, newIsFilled ? COLORS.default : COLORS.white));
-      elements.navbarSingleLink.forEach((element) => addHoverEffect(element, COLORS.primary, newIsFilled ? COLORS.default : COLORS.white));
-      buttonHoverStates(elements.navbarBtnPrimary, COLORS.hoverPrimary, newIsFilled ? COLORS.primary : COLORS.transparent);
-      buttonHoverStates(elements.navbarBtnSecondary, COLORS.hoverSecondary, newIsFilled ? COLORS.secondary : COLORS.transparent);
-      isFilled = newIsFilled;
-    }
+  // Function to set styles for an element
+  const setElementStyle = (element, styles) => {
+    Object.assign(element.style, styles);
+  };
+
+  // Function to add a hover effect to an element
+  // On mouseover, the color of the element is changed to the provided color
+  // On mouseout, the color of the element is changed based on the scroll position
+  const addHoverEffect = (element, hoverColor, mouseoutColor) => {
+    element.addEventListener("mouseover", function () {
+      element.style.color = hoverColor;
+    });
+    element.addEventListener("mouseout", function () {
+      element.style.color = mouseoutColor;
+    });
+  };
+  // // Function to handle button hovers
+  function buttonHoverStates(element, hoverBgColor, originalBgColor) {
+    const mouseoverFunc = function () {
+      this.style.backgroundColor = hoverBgColor;
+    };
+    const mouseoutFunc = function () {
+      this.style.backgroundColor = originalBgColor;
+    };
+    element.addEventListener("mouseover", mouseoverFunc);
+    element.addEventListener("mouseout", mouseoutFunc);
+    return { mouseoverFunc, mouseoutFunc };
+  }
+
+  // Store references to the event listener functions
+  let primaryBtnHoverFuncs, secondaryBtnHoverFuncs;
+
+  // Define the buttons and their hover states immediately after they are defined
+  if (elements.navbarAttribute === "filled" || window.scrollY > 120) {
+    setElementStyle(elements.navbarBtnPrimary, { backgroundColor: "#F4C65D", color: "#444" });
+    setElementStyle(elements.navbarBtnSecondary, { backgroundColor: "#F6F7F9", color: "#444" });
+    primaryBtnHoverFuncs = buttonHoverStates(elements.navbarBtnPrimary, "#f1b937", "#F4C65D");
+    secondaryBtnHoverFuncs = buttonHoverStates(elements.navbarBtnSecondary, "#ebebeb", "#F6F7F9");
+  } else {
+    setElementStyle(elements.navbarBtnPrimary, { backgroundColor: "transparent", color: "#FFFFFF" });
+    setElementStyle(elements.navbarBtnSecondary, { backgroundColor: "transparent", color: "#FFFFFF" });
+    primaryBtnHoverFuncs = buttonHoverStates(elements.navbarBtnPrimary, "rgba(255,255,255,0.06)", "transparent");
+    secondaryBtnHoverFuncs = buttonHoverStates(elements.navbarBtnSecondary, "rgba(255,255,255,0.06)", "transparent");
+  }
+
+  // Check the navbar attribute
+  // If it is 'filled', apply certain styles to the elements
+  // If it is not 'filled', add a scroll event listener to apply styles based on the scroll position
+  if (elements.navbarAttribute === "filled" || window.scrollY > 120) {
+    // Apply styles for a filled navbar
+    setElementStyle(elements.navbarComponent, { backgroundColor: "#FFFFFF" });
+    setElementStyle(elements.logoColorElement, { opacity: "1" });
+    elements.navDropdownTrigger.forEach((element) => {
+      setElementStyle(element, { color: "#444" });
+      addHoverEffect(element, "#016789", "#444");
+    });
+    elements.navbarSingleLink.forEach((element) => {
+      if (!element.classList.contains("navbar_btn")) {
+        setElementStyle(element, { color: "#444" });
+        addHoverEffect(element, "#016789", "#444");
+      }
+    });
+    elements.menuIconLines.forEach((element) => {
+      setElementStyle(element, { backgroundColor: "#444" });
+    });
+  }
+  // Add a scroll event listener to apply styles based on the scroll position
+  window.addEventListener("scroll", function () {
+    if (window.scrollY > 120 && elements.navbarComponent.style.backgroundColor === "transparent") {
+      // Apply styles for a scrolled down state
+      setElementStyle(elements.navbarComponent, { transition: "background-color 0.3s ease-in-out", backgroundColor: "#FFFFFF" });
+      setElementStyle(elements.logoColorElement, { transition: "opacity 0.3s ease-in-out", opacity: "1" });
+      elements.navDropdownTrigger.forEach((element) => {
+        setElementStyle(element, { color: "#444" });
+        addHoverEffect(element, "#016789", "#444");
+      });
+      elements.navbarSingleLink.forEach((element) => {
+        if (!element.classList.contains("navbar_btn")) {
+          setElementStyle(element, { color: "#444" });
+          addHoverEffect(element, "#016789", "#444");
+        }
+      });
+      setElementStyle(elements.navbarBtnPrimary, { backgroundColor: "#F4C65E", color: "#444" });
+      setElementStyle(elements.navbarBtnSecondary, { backgroundColor: "#F6F7F9", color: "#444" });
+      primaryBtnHoverFuncs = buttonHoverStates(elements.navbarBtnPrimary, "#f1b937", "#F4C65D");
+      secondaryBtnHoverFuncs = buttonHoverStates(elements.navbarBtnSecondary, "#ebebeb", "#F6F7F9");
+      elements.menuIconLines.forEach((element) => {
+        setElementStyle(element, { backgroundColor: "#444" });
+      });
+    } else if (window.scrollY <= 119 && elements.navbarAttribute !== "filled") {
+      // Apply styles for a scrolled up state
+      setElementStyle(elements.navbarComponent, { backgroundColor: "transparent" });
+      setElementStyle(elements.logoColorElement, { opacity: "0" });
+      elements.navDropdownTrigger.forEach((element) => {
+        setElementStyle(element, { color: "#FFFFFF" });
+        addHoverEffect(element, "#FFFFFF", "#FFFFFF");
+      });
+      elements.navbarSingleLink.forEach((element) => {
+        if (!element.classList.contains("navbar_btn")) {
+          setElementStyle(element, { color: "#FFFFFF" });
+          addHoverEffect(element, "#FFFFFF", "#FFFFFF");
+        }
+      });
+      setElementStyle(elements.navbarBtnPrimary, { backgroundColor: "transparent", color: "#FFFFFF" });
+      setElementStyle(elements.navbarBtnSecondary, { backgroundColor: "transparent", color: "#FFFFFF" });
+      elements.menuIconLines.forEach((element) => {
+        setElementStyle(element, { backgroundColor: "" });
+      });
+      elements.navbarBtnPrimary.style.backgroundColor = "";
+      elements.navbarBtnSecondary.style.backgroundColor = "";
+      elements.navbarBtnPrimary.removeEventListener("mouseover", primaryBtnHoverFuncs.mouseoverFunc);
+      elements.navbarBtnPrimary.removeEventListener("mouseout", primaryBtnHoverFuncs.mouseoutFunc);
+      elements.navbarBtnSecondary.removeEventListener("mouseover", secondaryBtnHoverFuncs.mouseoverFunc);
+      elements.navbarBtnSecondary.removeEventListener("mouseout", secondaryBtnHoverFuncs.mouseoutFunc);
+    } // Add mouseover and mouseout event listeners to each dropdown card
+    const dropdownCards = document.querySelectorAll(".nav_dropdown_card");
+    dropdownCards.forEach((dropdownCard) => {
+      dropdownCard.addEventListener("mouseover", function () {
+        if (dropdownCard.classList.contains("w--open") && (elements.navbarAttribute === "filled" || window.scrollY > 120)) {
+          const dropdownTrigger = dropdownCard.previousElementSibling;
+          dropdownTrigger.style.color = "#016789";
+        }
+      });
+
+      dropdownCard.addEventListener("mouseout", function () {
+        if (dropdownCard.classList.contains("w--open") && (elements.navbarAttribute === "filled" || window.scrollY > 120)) {
+          const dropdownTrigger = dropdownCard.previousElementSibling;
+          const color = elements.navbarAttribute === "filled" || window.scrollY > 120 ? "#444" : "#FFFFFF";
+          dropdownTrigger.style.color = color;
+        }
+      });
+    });
   });
-});
+};
