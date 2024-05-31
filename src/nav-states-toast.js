@@ -163,9 +163,9 @@ window.onload = function () {
   if (!navToast) {
     console.log("No toast found.");
   } else {
-    // Set the transition property for smooth movement
-    navToast.style.transition = "margin-top 0.3s ease-in-out";
-
+    // Set the transition property for smooth movement and opacity change
+    navToast.style.transition = "margin-top 0.3s ease-in-out, opacity 0.5s ease-in-out";
+    navToast.style.opacity = 1;
     // Function to handle scroll events
     function handleScroll() {
       if (window.scrollY > 100) {
