@@ -154,4 +154,29 @@ window.onload = function () {
       });
     });
   });
+
+  //Logic for handling the addition of the toast.
+
+  // Select the .nav-toast element
+  const navToast = document.querySelector(".nav-toast");
+
+  if (!navToast) {
+    console.log("No toast found.");
+  } else {
+    // Set the transition property for smooth movement and opacity change
+    navToast.style.transition = "margin-top 0.3s ease-in-out, opacity 0.5s ease-in-out";
+    navToast.style.opacity = 1;
+    // Function to handle scroll events
+    function handleScroll() {
+      if (window.scrollY > 100) {
+        // Adjust this value based on when you want the toast to move
+        navToast.style.marginTop = "-3.5rem";
+      } else {
+        navToast.style.marginTop = "0";
+      }
+    }
+
+    // Add scroll event listener
+    window.addEventListener("scroll", handleScroll);
+  }
 };
