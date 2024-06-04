@@ -193,13 +193,12 @@ window.onload = function () {
       document.querySelector(".nav-toast").style.transition = "opacity 0.3s ease-in-out";
     } else {
       navToast.style.marginTop = "0";
-      document.querySelector(".navbar_component_updated").style.marginTop = "0";
     }
 
     // Re-enable transitions after the initial setup
     setTimeout(() => {
-      document.querySelector(".navbar_component_updated").style.transition = "opacity 0.3s ease-in-out";
-      document.querySelector(".nav-toast").style.transition = "opacity 0.5s ease-in-out";
+      document.querySelector(".navbar_component_updated").style.transition = "opacity 0.3s ease-in-out, margin-top 0.3s ease-in-out";
+      document.querySelector(".nav-toast").style.transition = "opacity 0.3s ease-in-out, margin-top 0.3s ease-in-out";
     }, 0);
   }
 };
