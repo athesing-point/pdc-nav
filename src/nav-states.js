@@ -182,5 +182,24 @@ window.onload = function () {
 
     // Add scroll event listener
     window.addEventListener("scroll", handleScroll);
+
+    // Set initial position of the toast based on the current scroll position without waiting for a scroll event
+    // This ensures the correct position is set even if the page is refreshed while scrolled down
+    if (window.scrollY > 100) {
+      navToast.style.marginTop = "-3rem";
+      // document.querySelector(".navbar_component_updated").style.marginTop = "-3rem";
+      // Disable transitions initially to avoid the fade/move effect on load
+      document.querySelector(".navbar_component_updated").style.transition = "none";
+      document.querySelector(".nav-toast").style.transition = "none";
+    } else {
+      navToast.style.marginTop = "0";
+      document.querySelector(".navbar_component_updated").style.marginTop = "0";
+    }
+
+    // Re-enable transitions after the initial setup
+    setTimeout(() => {
+      document.querySelector(".navbar_component_updated").style.transition = "margin-top 0.3s ease-in-out";
+      document.querySelector(".nav-toast").style.transition = "margin-top 0.5s ease-in-out";
+    }, 0);
   }
 };
