@@ -170,7 +170,7 @@ window.onload = function () {
     function handleScroll() {
       if (window.scrollY > 100) {
         // Adjust this value based on when you want the toast to move
-        navToast.style.marginTop = "-3.5rem";
+        navToast.style.marginTop = "-3rem";
       } else {
         navToast.style.marginTop = "0";
       }
