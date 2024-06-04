@@ -164,7 +164,7 @@ window.onload = function () {
     console.log("No toast found.");
   } else {
     // Set the transition property for smooth movement and opacity change
-    navToast.style.transition = "margin-top 0.3s ease-in-out, opacity 0.5s ease-in-out";
+    navToast.style.transition = "opacity 0.5s ease-in-out";
     navToast.style.opacity = 1;
 
     // Function to handle scroll events
@@ -189,8 +189,8 @@ window.onload = function () {
       navToast.style.marginTop = "-3rem";
       // document.querySelector(".navbar_component_updated").style.marginTop = "-3rem";
       // Disable transitions initially to avoid the fade/move effect on load
-      document.querySelector(".navbar_component_updated").style.transition = "none";
-      document.querySelector(".nav-toast").style.transition = "none";
+      document.querySelector(".navbar_component_updated").style.transition = "opacity 0.3s ease-in-out";
+      document.querySelector(".nav-toast").style.transition = "opacity 0.3s ease-in-out";
     } else {
       navToast.style.marginTop = "0";
       document.querySelector(".navbar_component_updated").style.marginTop = "0";
@@ -198,8 +198,8 @@ window.onload = function () {
 
     // Re-enable transitions after the initial setup
     setTimeout(() => {
-      document.querySelector(".navbar_component_updated").style.transition = "margin-top 0.3s ease-in-out";
-      document.querySelector(".nav-toast").style.transition = "margin-top 0.5s ease-in-out";
+      document.querySelector(".navbar_component_updated").style.transition = "opacity 0.3s ease-in-out";
+      document.querySelector(".nav-toast").style.transition = "opacity 0.5s ease-in-out";
     }, 0);
   }
 };
