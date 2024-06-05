@@ -92,7 +92,7 @@ window.onload = function () {
     if (window.scrollY > 120 && elements.navbarComponent.style.backgroundColor === "transparent") {
       // Apply styles for a scrolled down state
       setElementStyle(elements.navbarComponent, { transition: "background-color 0.3s ease-in-out", backgroundColor: "#FFFFFF" });
-      setElementStyle(elements.logoColorElement, { transition: "opacity 0.3s ease-in-out", opacity: "1" });
+      setElementStyle(elements.logoColorElement, { transition: "opacity 0.15s ease", opacity: "1" });
       elements.navDropdownTrigger.forEach((element) => {
         setElementStyle(element, { color: "#444" });
         addHoverEffect(element, "#016789", "#444");
