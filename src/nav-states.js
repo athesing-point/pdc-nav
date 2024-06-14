@@ -1,7 +1,6 @@
 window.onload = function () {
   // Define all the elements that will be manipulated
   const elements = {
-    navbarAttribute: document.body.getAttribute("navbar-default"), // Attribute of the navbar
     navbarComponent: document.querySelector(".navbar_component_updated"), // The navbar component
     logoColorElement: document.querySelector(".logo-color"), // The colored logo
     logoWhiteElement: document.querySelector(".logo-white"), // The white logo
@@ -17,6 +16,9 @@ window.onload = function () {
     console.log("No Nav Found.");
     return;
   }
+
+  // Get the navbar attribute from the navbar component
+  const navbarAttribute = elements.navbarComponent.getAttribute("navbar-default");
 
   // Set the navbar opacity to 1
   elements.navbarComponent.style.opacity = "1";
@@ -37,7 +39,8 @@ window.onload = function () {
       element.style.color = mouseoutColor;
     });
   };
-  // // Function to handle button hovers
+
+  // Function to handle button hovers
   function buttonHoverStates(element, hoverBgColor, originalBgColor) {
     const mouseoverFunc = function () {
       this.style.backgroundColor = hoverBgColor;
@@ -54,7 +57,7 @@ window.onload = function () {
   let primaryBtnHoverFuncs, secondaryBtnHoverFuncs;
 
   // Define the buttons and their hover states immediately after they are defined
-  if (elements.navbarAttribute === "filled" || window.scrollY > 120) {
+  if (navbarAttribute === "filled" || window.scrollY > 120) {
     setElementStyle(elements.navbarBtnPrimary, { backgroundColor: "#F4C65D", color: "#444" });
     setElementStyle(elements.navbarBtnSecondary, { backgroundColor: "#F6F7F9", color: "#444" });
     primaryBtnHoverFuncs = buttonHoverStates(elements.navbarBtnPrimary, "#f1b937", "#F4C65D");
@@ -69,7 +72,7 @@ window.onload = function () {
   // Check the navbar attribute
   // If it is 'filled', apply certain styles to the elements
   // If it is not 'filled', add a scroll event listener to apply styles based on the scroll position
-  if (elements.navbarAttribute === "filled" || window.scrollY > 120) {
+  if (navbarAttribute === "filled" || window.scrollY > 120) {
     // Apply styles for a filled navbar
     setElementStyle(elements.navbarComponent, { backgroundColor: "#FFFFFF" });
     setElementStyle(elements.logoColorElement, { opacity: "1" });
@@ -87,6 +90,7 @@ window.onload = function () {
       setElementStyle(element, { backgroundColor: "#444" });
     });
   }
+
   // Add a scroll event listener to apply styles based on the scroll position
   window.addEventListener("scroll", function () {
     if (window.scrollY > 120 && elements.navbarComponent.style.backgroundColor === "transparent") {
@@ -110,7 +114,7 @@ window.onload = function () {
       elements.menuIconLines.forEach((element) => {
         setElementStyle(element, { backgroundColor: "#444" });
       });
-    } else if (window.scrollY <= 119 && elements.navbarAttribute !== "filled") {
+    } else if (window.scrollY <= 119 && navbarAttribute !== "filled") {
       // Apply styles for a scrolled up state
       setElementStyle(elements.navbarComponent, { backgroundColor: "transparent" });
       setElementStyle(elements.logoColorElement, { opacity: "0" });
@@ -139,16 +143,16 @@ window.onload = function () {
     const dropdownCards = document.querySelectorAll(".nav_dropdown_card");
     dropdownCards.forEach((dropdownCard) => {
       dropdownCard.addEventListener("mouseover", function () {
-        if (dropdownCard.classList.contains("w--open") && (elements.navbarAttribute === "filled" || window.scrollY > 120)) {
+        if (dropdownCard.classList.contains("w--open") && (navbarAttribute === "filled" || window.scrollY > 120)) {
           const dropdownTrigger = dropdownCard.previousElementSibling;
           dropdownTrigger.style.color = "#016789";
         }
       });
 
       dropdownCard.addEventListener("mouseout", function () {
-        if (dropdownCard.classList.contains("w--open") && (elements.navbarAttribute === "filled" || window.scrollY > 120)) {
+        if (dropdownCard.classList.contains("w--open") && (navbarAttribute === "filled" || window.scrollY > 120)) {
           const dropdownTrigger = dropdownCard.previousElementSibling;
-          const color = elements.navbarAttribute === "filled" || window.scrollY > 120 ? "#444" : "#FFFFFF";
+          const color = navbarAttribute === "filled" || window.scrollY > 120 ? "#444" : "#FFFFFF";
           dropdownTrigger.style.color = color;
         }
       });
