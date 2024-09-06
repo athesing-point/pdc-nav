@@ -175,7 +175,7 @@ window.onload = function () {
     function handleScroll() {
       if (window.scrollY > 100) {
         // Adjust this value based on when you want the toast to move
-        navToast.style.marginTop = "-3rem";
+        navToast.style.marginTop = "-2.5rem";
       } else {
         navToast.style.marginTop = "0";
       }
@@ -190,8 +190,7 @@ window.onload = function () {
     // Set initial position of the toast based on the current scroll position without waiting for a scroll event
     // This ensures the correct position is set even if the page is refreshed while scrolled down
     if (window.scrollY > 100) {
-      navToast.style.marginTop = "-3rem";
-      // document.querySelector(".navbar_component_updated").style.marginTop = "-3rem";
+      navToast.style.marginTop = "-2.5rem";
       // Disable transitions initially to avoid the fade/move effect on load
       document.querySelector(".navbar_component_updated").style.transition = "opacity 0.3s ease-in-out";
       document.querySelector(".nav-toast").style.transition = "opacity 0.3s ease-in-out";
