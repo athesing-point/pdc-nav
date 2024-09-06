@@ -2152,5 +2152,65 @@ loading="lazy"
         }
       });
     </script>
+    <noscript>
+      <style>
+        .navbar_component_updated {
+          background-color: #ffffff !important;
+          opacity: 1 !important;
+        }
+        .logo-color {
+          opacity: 1 !important;
+        }
+        .nav_dropdown_trigger,
+        .navbar_single_link:not(.navbar_btn) {
+          color: #444 !important;
+        }
+        .navbar_btn[navbar-btn="primary"] {
+          background-color: #f4c65d !important;
+          color: #444 !important;
+        }
+        .navbar_btn[navbar-btn="secondary"] {
+          background-color: #f6f7f9 !important;
+          color: #444 !important;
+        }
+        .menu-icon1_line-top,
+        .menu-icon1_line-middle,
+        .menu-icon1_line-bottom {
+          background-color: #444 !important;
+        }
+        /* Toast component styles */
+        .nav-toast {
+          opacity: 1 !important;
+          margin-top: 0 !important;
+        }
+        /* Ensure the navbar doesn't overlap the toast */
+        /* .navbar_component_updated {
+          margin-top: 3rem !important;
+        } */
+
+        /* Dropdown menu fallbacks */
+        .nav_dropdown_list {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          background-color: #ffffff;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+          z-index: 1000;
+        }
+        .nav_dropdown:hover .nav_dropdown_list {
+          display: block;
+        }
+        .nav_dropdown_link {
+          display: block;
+          padding: 10px 15px;
+          color: #444;
+          text-decoration: none;
+        }
+        .nav_dropdown_link:hover {
+          background-color: #f6f7f9;
+        }
+      </style>
+    </noscript>
   </body>
 </html>
