@@ -164,12 +164,8 @@ window.onload = function () {
   // Select the .nav-toast element
   const navToast = document.querySelector(".nav-toast");
 
-  if (!navToast) {
-    console.log("No toast found.");
-  } else {
-    // Set the transition property for smooth movement and opacity change
-    navToast.style.transition = "opacity 0.3s ease-in-out";
-    navToast.style.opacity = 1;
+  if (navToast) {
+    navToast.style.opacity = "1";
 
     // Function to handle scroll events
     function handleScroll() {
