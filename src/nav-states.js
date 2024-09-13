@@ -95,8 +95,8 @@ window.onload = function () {
   window.addEventListener("scroll", function () {
     if (window.scrollY > 64 && elements.navbarComponent.style.backgroundColor === "transparent") {
       // Apply styles for a scrolled down state
-      setElementStyle(elements.navbarComponent, { transition: "background-color 0.3s ease-in-out", backgroundColor: "#FFFFFF" });
-      setElementStyle(elements.logoColorElement, { transition: "opacity 0.15s ease", opacity: "1" });
+      setElementStyle(elements.navbarComponent, { transition: "background-color 0.2s linear", backgroundColor: "#FFFFFF" });
+      setElementStyle(elements.logoColorElement, { transition: "opacity 0.2s linear", opacity: "1" });
       elements.navDropdownTrigger.forEach((element) => {
         setElementStyle(element, { color: "#444" });
         addHoverEffect(element, "#016789", "#444");
@@ -166,6 +166,7 @@ window.onload = function () {
 
   if (navToast) {
     navToast.style.opacity = "1";
+    navToast.style.transition = "margin-top 0.2s linear";
 
     // Function to handle scroll events
     function handleScroll() {
@@ -188,16 +189,16 @@ window.onload = function () {
     if (window.scrollY > 100) {
       navToast.style.marginTop = "-2.5rem";
       // Disable transitions initially to avoid the fade/move effect on load
-      document.querySelector(".navbar_component_updated").style.transition = "opacity 0.3s ease-in-out";
-      document.querySelector(".nav-toast").style.transition = "opacity 0.3s ease-in-out";
+      document.querySelector(".navbar_component_updated").style.transition = "opacity 0.2s linear";
+      document.querySelector(".nav-toast").style.transition = "opacity 0.2s linear, margin-top 0.2s linear";
     } else {
       navToast.style.marginTop = "0";
     }
 
     // Re-enable transitions after the initial setup
     setTimeout(() => {
-      document.querySelector(".navbar_component_updated").style.transition = "opacity 0.3s ease-in-out, margin-top 0.3s ease-in-out";
-      document.querySelector(".nav-toast").style.transition = "opacity 0.3s ease-in-out, margin-top 0.3s ease-in-out";
+      document.querySelector(".navbar_component_updated").style.transition = "opacity 0.2s linear, margin-top 0.2s linear";
+      document.querySelector(".nav-toast").style.transition = "opacity 0.2s linear, margin-top 0.2s linear";
     }, 0);
   }
 };
