@@ -57,7 +57,7 @@ window.onload = function () {
   let primaryBtnHoverFuncs, secondaryBtnHoverFuncs;
 
   // Define the buttons and their hover states immediately after they are defined
-  if (navbarAttribute === "filled" || window.scrollY > 120) {
+  if (navbarAttribute === "filled" || window.scrollY > 64) {
     setElementStyle(elements.navbarBtnPrimary, { backgroundColor: "#F4C65D", color: "#444" });
     setElementStyle(elements.navbarBtnSecondary, { backgroundColor: "#F6F7F9", color: "#444" });
     primaryBtnHoverFuncs = buttonHoverStates(elements.navbarBtnPrimary, "#f1b937", "#F4C65D");
@@ -72,7 +72,7 @@ window.onload = function () {
   // Check the navbar attribute
   // If it is 'filled', apply certain styles to the elements
   // If it is not 'filled', add a scroll event listener to apply styles based on the scroll position
-  if (navbarAttribute === "filled" || window.scrollY > 120) {
+  if (navbarAttribute === "filled" || window.scrollY > 64) {
     // Apply styles for a filled navbar
     setElementStyle(elements.navbarComponent, { backgroundColor: "#FFFFFF" });
     setElementStyle(elements.logoColorElement, { opacity: "1" });
@@ -93,7 +93,7 @@ window.onload = function () {
 
   // Add a scroll event listener to apply styles based on the scroll position
   window.addEventListener("scroll", function () {
-    if (window.scrollY > 120 && elements.navbarComponent.style.backgroundColor === "transparent") {
+    if (window.scrollY > 64 && elements.navbarComponent.style.backgroundColor === "transparent") {
       // Apply styles for a scrolled down state
       setElementStyle(elements.navbarComponent, { transition: "background-color 0.3s ease-in-out", backgroundColor: "#FFFFFF" });
       setElementStyle(elements.logoColorElement, { transition: "opacity 0.15s ease", opacity: "1" });
@@ -114,7 +114,7 @@ window.onload = function () {
       elements.menuIconLines.forEach((element) => {
         setElementStyle(element, { backgroundColor: "#444" });
       });
-    } else if (window.scrollY <= 119 && navbarAttribute !== "filled") {
+    } else if (window.scrollY <= 63 && navbarAttribute !== "filled") {
       // Apply styles for a scrolled up state
       setElementStyle(elements.navbarComponent, { backgroundColor: "transparent" });
       setElementStyle(elements.logoColorElement, { opacity: "0" });
@@ -164,18 +164,14 @@ window.onload = function () {
   // Select the .nav-toast element
   const navToast = document.querySelector(".nav-toast");
 
-  if (!navToast) {
-    console.log("No toast found.");
-  } else {
-    // Set the transition property for smooth movement and opacity change
-    navToast.style.transition = "opacity 0.3s ease-in-out";
-    navToast.style.opacity = 1;
+  if (navToast) {
+    navToast.style.opacity = "1";
 
     // Function to handle scroll events
     function handleScroll() {
       if (window.scrollY > 100) {
         // Adjust this value based on when you want the toast to move
-        navToast.style.marginTop = "-3rem";
+        navToast.style.marginTop = "-2.5rem";
       } else {
         navToast.style.marginTop = "0";
       }
@@ -190,8 +186,7 @@ window.onload = function () {
     // Set initial position of the toast based on the current scroll position without waiting for a scroll event
     // This ensures the correct position is set even if the page is refreshed while scrolled down
     if (window.scrollY > 100) {
-      navToast.style.marginTop = "-3rem";
-      // document.querySelector(".navbar_component_updated").style.marginTop = "-3rem";
+      navToast.style.marginTop = "-2.5rem";
       // Disable transitions initially to avoid the fade/move effect on load
       document.querySelector(".navbar_component_updated").style.transition = "opacity 0.3s ease-in-out";
       document.querySelector(".nav-toast").style.transition = "opacity 0.3s ease-in-out";
@@ -206,3 +201,5 @@ window.onload = function () {
     }, 0);
   }
 };
+
+//test

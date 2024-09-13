@@ -1,0 +1,93 @@
+/* Base styles */
+.navbar_component_updated {
+  transition: background-color 0.3s ease-in-out, margin-top 0.3s ease-in-out;
+}
+
+.nav-toast {
+  transition: opacity 0.3s ease-in-out, margin-top 0.3s ease-in-out;
+}
+
+/* Scrolled state */
+.navbar-scrolled {
+  background-color: #ffffff;
+}
+
+.navbar-scrolled .logo-color {
+  opacity: 1;
+}
+
+.navbar-scrolled .nav_dropdown_trigger,
+.navbar-scrolled .navbar_single_link:not(.navbar_btn) {
+  color: #444;
+}
+
+.navbar-scrolled .nav_dropdown_trigger:hover,
+.navbar-scrolled .navbar_single_link:not(.navbar_btn):hover {
+  color: #016789;
+}
+
+.navbar-scrolled .navbar_btn[navbar-btn="primary"] {
+  background-color: #f4c65e;
+  color: #444;
+}
+
+.navbar-scrolled .navbar_btn[navbar-btn="secondary"] {
+  background-color: #f6f7f9;
+  color: #444;
+}
+
+/* Non-scrolled state */
+.navbar-top {
+  background-color: transparent;
+}
+
+.navbar-top .logo-color {
+  opacity: 0;
+}
+
+.navbar-top .nav_dropdown_trigger,
+.navbar-top .navbar_single_link:not(.navbar_btn) {
+  color: #ffffff;
+}
+
+.navbar-top .navbar_btn {
+  background-color: transparent;
+  color: #ffffff;
+}
+
+/* Toast states */
+.nav-toast-hidden {
+  margin-top: -2.5rem;
+}
+
+/* Hover effects for navbar links */
+.hover-dark:hover {
+  color: #016789;
+}
+
+.hover-light:hover {
+  color: #ffffff;
+}
+
+/* Hover effects for primary button */
+.btn-hover-filled:hover {
+  background-color: #f1b937;
+}
+
+.btn-hover-transparent:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+/* Hover effects for secondary button */
+.btn-hover-filled:hover {
+  background-color: #ebebeb;
+}
+
+.btn-hover-transparent:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+/* Dropdown hover effect */
+.dropdown-hover {
+  color: #016789;
+}
