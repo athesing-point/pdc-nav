@@ -1,78 +1,82 @@
-window.onload = function () {
-  // Define all the elements that will be manipulated
-  const elements = {
-    navbarComponent: document.querySelector(".navbar_component_updated"),
-    logoColorElement: document.querySelector(".logo-color"),
-    logoWhiteElement: document.querySelector(".logo-white"),
-    navDropdownTrigger: document.querySelectorAll(".nav_dropdown_trigger"),
-    navbarSingleLink: document.querySelectorAll(".navbar_single_link"),
-    navbarBtnPrimary: document.querySelector(".navbar_btn[navbar-btn='primary']"),
-    navbarBtnSecondary: document.querySelector(".navbar_btn[navbar-btn='secondary']"),
-    menuIconLines: document.querySelectorAll(".menu-icon1_line-top, .menu-icon1_line-middle, .menu-icon1_line-bottom"),
-    navToast: document.querySelector(".nav-toast"),
-  };
-
-  // Check if the navbar component exists
-  if (!elements.navbarComponent) {
-    console.log("No Nav Found.");
-    return;
-  }
-
-  // Get the navbar attribute from the navbar component
-  const navbarAttribute = elements.navbarComponent.getAttribute("navbar-default");
-
-  // Disable all transitions initially
-  elements.navbarComponent.style.transition = "none";
-  if (elements.navToast) {
-    elements.navToast.style.transition = "none";
-  }
-
+// Run this code immediately before window.onload
+(function () {
   // Set initial states based on scroll position
   const setInitialStates = () => {
-    if (window.scrollY > 64 || navbarAttribute === "filled") {
+    const navbarComponent = document.querySelector(".navbar_component_updated");
+    const logoColorElement = document.querySelector(".logo-color");
+    const navDropdownTrigger = document.querySelectorAll(".nav_dropdown_trigger");
+    const navbarSingleLink = document.querySelectorAll(".navbar_single_link");
+    const menuIconLines = document.querySelectorAll(".menu-icon1_line-top, .menu-icon1_line-middle, .menu-icon1_line-bottom");
+    const navToast = document.querySelector(".nav-toast");
+    const navbarBtnPrimary = document.querySelector(".navbar_btn[navbar-btn='primary']");
+    const navbarBtnSecondary = document.querySelector(".navbar_btn[navbar-btn='secondary']");
+
+    if (!navbarComponent) return;
+
+    // Disable transitions initially
+    navbarComponent.style.transition = "none";
+    if (navToast) {
+      navToast.style.transition = "none";
+    }
+
+    if (window.scrollY > 64 || navbarComponent.getAttribute("navbar-default") === "filled") {
       // Apply filled navbar styles
-      elements.navbarComponent.style.backgroundColor = "#FFFFFF";
-      elements.logoColorElement.style.opacity = "1";
-      elements.navDropdownTrigger.forEach((element) => {
+      navbarComponent.style.backgroundColor = "#FFFFFF";
+      logoColorElement.style.opacity = "1";
+      navDropdownTrigger.forEach((element) => {
         element.style.color = "#444";
       });
-      elements.navbarSingleLink.forEach((element) => {
+      navbarSingleLink.forEach((element) => {
         if (!element.classList.contains("navbar_btn")) {
           element.style.color = "#444";
         }
       });
-      elements.menuIconLines.forEach((element) => {
+      menuIconLines.forEach((element) => {
         element.style.backgroundColor = "#444";
       });
 
       // Set button styles
-      setElementStyle(elements.navbarBtnPrimary, { backgroundColor: "#F4C65D", color: "#444" });
-      setElementStyle(elements.navbarBtnSecondary, { backgroundColor: "#F6F7F9", color: "#444" });
+      if (navbarBtnPrimary) {
+        navbarBtnPrimary.style.backgroundColor = "#F4C65D";
+        navbarBtnPrimary.style.color = "#444";
+      }
+      if (navbarBtnSecondary) {
+        navbarBtnSecondary.style.backgroundColor = "#F6F7F9";
+        navbarBtnSecondary.style.color = "#444";
+      }
     }
 
     // Set toast position if scrolled down
-    if (elements.navToast && window.scrollY > 100) {
-      elements.navToast.style.marginTop = "-2.5rem";
+    if (navToast && window.scrollY > 100) {
+      navToast.style.marginTop = "-2.5rem";
+    }
+
+    // Make navbar visible
+    navbarComponent.style.opacity = "1";
+    if (navToast) {
+      navToast.style.opacity = "1";
     }
   };
 
-  // Run initial state setup
+  // Run initial setup
   setInitialStates();
 
   // Re-enable transitions after a brief delay
   setTimeout(() => {
-    elements.navbarComponent.style.transition = "background-color 0.2s linear";
-    if (elements.navToast) {
-      elements.navToast.style.transition = "margin-top 0.2s linear";
+    const navbarComponent = document.querySelector(".navbar_component_updated");
+    const navToast = document.querySelector(".nav-toast");
+
+    if (navbarComponent) {
+      navbarComponent.style.transition = "background-color 0.2s linear";
     }
-    elements.navbarComponent.style.opacity = "1";
-    if (elements.navToast) {
-      elements.navToast.style.opacity = "1";
+    if (navToast) {
+      navToast.style.transition = "margin-top 0.2s linear";
     }
   }, 50);
+})();
 
-  // Rest of your existing code...
-  // (Keep all the existing scroll handlers and other functionality)
+// Rest of your window.onload code
+window.onload = function () {
+  // Your existing window.onload code here
+  // (Keep all the scroll handlers and other functionality)
 };
-
-//test
