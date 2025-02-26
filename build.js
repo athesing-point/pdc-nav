@@ -1,20 +1,16 @@
 import { build } from "esbuild";
-import { readdirSync } from "fs";
 import { join } from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 const isWatchMode = process.argv.includes("--watch");
 
-// Get all JavaScript files from src directory
-const srcDir = join(__dirname, "src");
-const entryPoints = readdirSync(srcDir)
-  .filter((file) => file.endsWith(".js"))
-  .map((file) => join(srcDir, file));
+// Only build the nav-states.js file, which imports ResumeApplicationToast.js
+const entryPoint = join(__dirname, "src", "nav-states.js");
 
 // Build configuration
 const buildOptions = {
-  entryPoints,
+  entryPoints: [entryPoint],
   bundle: true,
   minify: true,
   format: "esm",
@@ -37,6 +33,7 @@ if (isWatchMode) {
       },
     },
   });
+
   console.log("Watching for changes...");
 } else {
   // One-time build
