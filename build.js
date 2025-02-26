@@ -8,8 +8,11 @@ const isWatchMode = process.argv.includes("--watch");
 
 // Only build the nav-states.js file, which imports ResumeApplicationToast.js
 const entryPoint = join(__dirname, "src", "nav-states.js");
+<<<<<<< HEAD
 const outFile = join(__dirname, "dist", "nav-states.js");
 const outMapFile = outFile + ".map";
+=======
+>>>>>>> e123a83 (Updated build w/ seperate file for toast.)
 
 // Helper function to format file size
 const formatSize = (bytes) => {
@@ -104,7 +107,11 @@ if (isWatchMode) {
     },
   });
 
+<<<<<<< HEAD
   console.log(`👀 Watching for changes in src directory...`);
+=======
+  console.log("Watching for changes...");
+>>>>>>> e123a83 (Updated build w/ seperate file for toast.)
 } else {
   // One-time build
   try {

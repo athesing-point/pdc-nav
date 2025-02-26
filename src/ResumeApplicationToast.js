@@ -3,6 +3,7 @@ export class ResumeApplicationToast {
   static isVisible = false;
   static prequalDomain = null;
 
+<<<<<<< HEAD
   constructor(prequalDomain = null) {
     ResumeApplicationToast.prequalDomain = prequalDomain || this.determinePrequalDomain();
     this.init();
@@ -21,6 +22,13 @@ export class ResumeApplicationToast {
     return "https://get.point.com";
   }
 
+=======
+  constructor(prequalDomain = "https://get.point.com") {
+    ResumeApplicationToast.prequalDomain = prequalDomain;
+    this.init();
+  }
+
+>>>>>>> e123a83 (Updated build w/ seperate file for toast.)
   async init() {
     try {
       const data = await ResumeApplicationToast.fetchVisitorData();
@@ -73,6 +81,7 @@ export class ResumeApplicationToast {
   updateToast(visitor) {
     if (!visitor) return;
 
+<<<<<<< HEAD
     // Find the toast elements
     const toastMail = document.querySelector("#toast-mail");
     const toastOffer = document.querySelector("#toast-offer");
@@ -106,5 +115,61 @@ export class ResumeApplicationToast {
     }
 
     ResumeApplicationToast.isVisible = true;
+=======
+    // Find the toast elements we want to update
+    const toastElement = document.querySelector("#toast");
+    if (!toastElement) return;
+
+    // Find the links in the toast
+    const toastLinks = toastElement.querySelectorAll("a");
+    if (!toastLinks || toastLinks.length === 0) return;
+
+    let message = null;
+    let actionText = null;
+
+    if (visitor.hasActiveDocket && !visitor.hasActiveApplicantFlow) {
+      message = "Looks like you previously started an application";
+      actionText = "Check status";
+    } else if (visitor.hasActiveDocket) {
+      message = "Looks like you previously started an application";
+      actionText = "Resume Application";
+    } else if (visitor.estimateKey) {
+      message = "You have a recently created offer";
+      actionText = "View latest offer";
+    }
+
+    if (message && actionText) {
+      // Update the toast text
+      const textElements = toastElement.querySelectorAll(".text-link-soft_underline");
+      if (textElements && textElements.length > 0) {
+        textElements.forEach((element) => {
+          element.textContent = message;
+        });
+      }
+
+      // Update link destination for all links
+      toastLinks.forEach((link) => {
+        link.addEventListener("click", async (e) => {
+          e.preventDefault();
+          try {
+            const response = await ResumeApplicationToast.fetchRedirectLink();
+            if (response && response.url) {
+              window.location.assign(response.url);
+            } else {
+              console.error("No redirect URL received");
+              // Fallback to default behavior if no URL is received
+              window.location.href = link.getAttribute("href");
+            }
+          } catch (error) {
+            console.error("Error redirecting to application:", error);
+            // Fallback to default behavior on error
+            window.location.href = link.getAttribute("href");
+          }
+        });
+      });
+
+      ResumeApplicationToast.isVisible = true;
+    }
+>>>>>>> e123a83 (Updated build w/ seperate file for toast.)
   }
 }
