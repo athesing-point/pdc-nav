@@ -16,7 +16,7 @@ const buildOptions = {
   format: "esm",
   target: ["es2020"],
   outdir: "dist",
-  sourcemap: true,
+  sourcemap: false,
 };
 
 if (isWatchMode) {
