@@ -166,6 +166,5 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Initialize the ResumeApplicationToast when the page loads
-  const prequalDomain = "https://get.point.com";
-  const resumeApplicationToast = new ResumeApplicationToast(prequalDomain);
+  const resumeApplicationToast = new ResumeApplicationToast();
 });

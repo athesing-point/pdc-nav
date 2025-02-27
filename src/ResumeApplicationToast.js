@@ -3,9 +3,22 @@ export class ResumeApplicationToast {
   static isVisible = false;
   static prequalDomain = null;
 
-  constructor(prequalDomain = "https://get.point.com") {
-    ResumeApplicationToast.prequalDomain = prequalDomain;
+  constructor(prequalDomain = null) {
+    ResumeApplicationToast.prequalDomain = prequalDomain || this.determinePrequalDomain();
     this.init();
+  }
+
+  determinePrequalDomain() {
+    // Get the current hostname (e.g., "www.point.com" or "www.point.dev")
+    const hostname = window.location.hostname;
+
+    // Check if we're on a .dev domain
+    if (hostname.includes(".dev")) {
+      return "https://get.point.dev";
+    }
+
+    // Default to .com domain
+    return "https://get.point.com";
   }
 
   async init() {
