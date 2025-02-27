@@ -4,6 +4,7 @@ export class ResumeApplicationToast {
   static prequalDomain = null;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   constructor(prequalDomain = null) {
     ResumeApplicationToast.prequalDomain = prequalDomain || this.determinePrequalDomain();
     this.init();
@@ -29,6 +30,26 @@ export class ResumeApplicationToast {
   }
 
 >>>>>>> e123a83 (Updated build w/ seperate file for toast.)
+=======
+  constructor(prequalDomain = null) {
+    ResumeApplicationToast.prequalDomain = prequalDomain || this.determinePrequalDomain();
+    this.init();
+  }
+
+  determinePrequalDomain() {
+    // Get the current hostname (e.g., "www.point.com" or "www.point.dev")
+    const hostname = window.location.hostname;
+
+    // Check if we're on a .dev domain
+    if (hostname.includes(".dev")) {
+      return "https://get.point.dev";
+    }
+
+    // Default to .com domain
+    return "https://get.point.com";
+  }
+
+>>>>>>> 92fb4c6 (Dynamically determine prequalDomain based on current page TLD)
   async init() {
     try {
       const data = await ResumeApplicationToast.fetchVisitorData();
