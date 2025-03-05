@@ -164,6 +164,13 @@ document.addEventListener("DOMContentLoaded", function () {
       elements.navToast.style.marginTop = "0";
     }
   }
+<<<<<<< HEAD
+
+  // Initialize the ResumeApplicationToast when the page loads
+  const resumeApplicationToast = new ResumeApplicationToast();
+});
+=======
+>>>>>>> e123a83 (Updated build w/ seperate file for toast.)
 
   // Initialize the ResumeApplicationToast when the page loads
   const resumeApplicationToast = new ResumeApplicationToast();
