@@ -59,6 +59,44 @@ export class ResumeApplicationToast {
 >>>>>>> 92fb4c6 (Dynamically determine prequalDomain based on current page TLD)
   async init() {
     try {
+      // Add transition styles to toasts
+      const toastContainer = document.querySelector("#toast");
+      const toastMail = document.querySelector("#toast-mail");
+      const toastOffer = document.querySelector("#toast-offer");
+
+      if (toastContainer) {
+        Object.assign(toastContainer.style, {
+          transition: "all 0.3s ease-in-out",
+          opacity: "1",
+          height: "3.5rem",
+          overflow: "hidden",
+        });
+      }
+
+      if (toastMail) {
+        Object.assign(toastMail.style, {
+          transition: "all 0.3s ease-in-out",
+          opacity: "1",
+          transform: "translateY(0)",
+          display: "flex",
+          position: "relative",
+        });
+      }
+
+      if (toastOffer) {
+        Object.assign(toastOffer.style, {
+          transition: "all 0.3s ease-in-out",
+          opacity: "0",
+          transform: "translateY(-100%)",
+          position: "absolute",
+          top: "0",
+          left: "0",
+          right: "0",
+          display: "flex",
+          visibility: "hidden",
+        });
+      }
+
       const data = await ResumeApplicationToast.fetchVisitorData();
       if (data) {
         this.updateToast(data);
@@ -158,6 +196,7 @@ export class ResumeApplicationToast {
       if (!shouldShowOffer) return;
 
       // Find the toast elements
+      const toastContainer = document.querySelector("#toast");
       const toastMail = document.querySelector("#toast-mail");
       const toastOffer = document.querySelector("#toast-offer");
 >>>>>>> 7ac3aab (feat: Add Bugsnag error tracking to ResumeApplicationToast)
@@ -166,9 +205,26 @@ export class ResumeApplicationToast {
         throw new Error("Toast offer element not found");
       }
 
-      // Only now that we know we'll show the offer toast, hide the mail toast
-      if (toastMail) toastMail.style.display = "none";
-      toastOffer.style.display = "flex";
+      // Make offer toast visible but still transparent before transition
+      toastOffer.style.visibility = "visible";
+
+      // Smoothly transition between toasts
+      if (toastMail) {
+        toastMail.style.opacity = "0";
+        toastMail.style.transform = "translateY(-100%)";
+      }
+
+      // Show the offer toast with a slight delay to allow for the mail toast to fade out
+      setTimeout(() => {
+        if (toastOffer) {
+          toastOffer.style.opacity = "1";
+          toastOffer.style.transform = "translateY(0)";
+        }
+        // Clean up the mail toast after transition
+        if (toastMail) {
+          toastMail.style.display = "none";
+        }
+      }, 300);
 
       // Update link destination for the offer toast link
       const offerLink = toastOffer.querySelector("a");
