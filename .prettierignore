@@ -1,0 +1,6 @@
+# Ignore build output
+dist/
+
+# Other common directories to ignore
+node_modules/
+.git/ 
