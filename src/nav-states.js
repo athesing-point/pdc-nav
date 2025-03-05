@@ -1,3 +1,5 @@
+import { ResumeApplicationToast } from "./ResumeApplicationToast.js";
+
 document.addEventListener("DOMContentLoaded", function () {
   // Define all the elements that will be manipulated
   const elements = {
@@ -162,4 +164,7 @@ document.addEventListener("DOMContentLoaded", function () {
       elements.navToast.style.marginTop = "0";
     }
   }
+
+  // Initialize the ResumeApplicationToast when the page loads
+  const resumeApplicationToast = new ResumeApplicationToast();
 });
