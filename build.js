@@ -36,6 +36,8 @@ const buildOptions = {
   target: ["es2020"],
   outfile: outFile,
   sourcemap: true,
+  sourcesContent: false, // Don't include source contents in map
+  sourceRoot: "/", // Make source URLs relative to root
   metafile: true,
   define: {
     "process.env.NODE_ENV": '"production"', // Always set NODE_ENV to production
