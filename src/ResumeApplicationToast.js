@@ -105,10 +105,17 @@ export class ResumeApplicationToast {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     // Only show toast if visitor has relevant state
     const hasRelevantState = visitor.hasActiveDocket || visitor.estimateKey;
     if (!hasRelevantState) return;
+=======
+    // Check for specific visitor states that should trigger the offer toast
+    const shouldShowOffer = (visitor.hasActiveDocket && !visitor.hasActiveApplicantFlow) || visitor.hasActiveDocket || visitor.estimateKey;
+
+    if (!shouldShowOffer) return;
+>>>>>>> 0e27fed (refactor: Improve toast visibility logic in ResumeApplicationToast)
 
 >>>>>>> 2ff7593 (Update ResumeApplicationToast to only show toast-offer if visitor has relevant state)
     // Find the toast elements
