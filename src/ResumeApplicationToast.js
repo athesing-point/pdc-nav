@@ -104,13 +104,20 @@ export class ResumeApplicationToast {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    // Only show toast if visitor has relevant state
+    const hasRelevantState = visitor.hasActiveDocket || visitor.estimateKey;
+    if (!hasRelevantState) return;
+
+>>>>>>> 2ff7593 (Update ResumeApplicationToast to only show toast-offer if visitor has relevant state)
     // Find the toast elements
     const toastMail = document.querySelector("#toast-mail");
     const toastOffer = document.querySelector("#toast-offer");
 
     if (!toastOffer) return;
 
-    // Show offer toast and hide mail toast
+    // Only now that we know we'll show the offer toast, hide the mail toast
     if (toastMail) toastMail.style.display = "none";
     toastOffer.style.display = "flex";
 
