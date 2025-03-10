@@ -147,12 +147,14 @@ export class ResumeApplicationToast {
 
       // Find the toast elements
       const toastContainer = document.querySelector("#toast");
+
+      // Early return if toast container doesn't exist
+      if (!toastContainer) return;
+
       const toastMail = document.querySelector("#toast-mail");
       const toastOffer = document.querySelector("#toast-offer");
 
-      if (!toastOffer) {
-        throw new Error("Toast offer element not found");
-      }
+      if (!toastOffer) return;
 
       // Make offer toast visible but still transparent before transition
       toastOffer.style.visibility = "visible";
