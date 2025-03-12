@@ -1,0 +1,55 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Browser Tools Server",
+      "type": "shell",
+      "command": "npx",
+      "args": ["@agentdeskai/browser-tools-server@1.2.0"],
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true,
+        "showReuseMessage": false,
+        "focus": false
+      },
+      "isBackground": true
+    },
+    {
+      "label": "Build and Watch",
+      "type": "shell",
+      "command": "bun",
+      "args": ["run", "watch"],
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true,
+        "showReuseMessage": false,
+        "focus": false
+      },
+      "runOptions": {
+        "runOn": "folderOpen"
+      },
+      "isBackground": true
+    },
+    {
+      "label": "Build",
+      "type": "shell",
+      "command": "bun",
+      "args": ["run", "build"],
+      "problemMatcher": [],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true
+      }
+    }
+  ]
+}
