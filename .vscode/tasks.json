@@ -1,21 +1,21 @@
 {
   "version": "2.0.0",
   "tasks": [
-    {
-      "label": "Browser Tools Server",
-      "type": "shell",
-      "command": "npx",
-      "args": ["@agentdeskai/browser-tools-server@1.2.0"],
-      "problemMatcher": [],
-      "presentation": {
-        "reveal": "always",
-        "panel": "dedicated",
-        "clear": true,
-        "showReuseMessage": false,
-        "focus": false
-      },
-      "isBackground": true
-    },
+    // {
+    //   "label": "Browser Tools Server",
+    //   "type": "shell",
+    //   "command": "bunx",
+    //   "args": ["@agentdeskai/browser-tools-server@1.2.0"],
+    //   "problemMatcher": [],
+    //   "presentation": {
+    //     "reveal": "always",
+    //     "panel": "dedicated",
+    //     "clear": true,
+    //     "showReuseMessage": false,
+    //     "focus": false
+    //   },
+    //   "isBackground": true
+    // },
     {
       "label": "Build and Watch",
       "type": "shell",
