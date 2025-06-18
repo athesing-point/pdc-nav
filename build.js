@@ -28,33 +28,6 @@ const getTimestamp = () => {
   return new Date().toLocaleTimeString();
 };
 
-// Function to adjust source map paths and sourceMappingURL
-const adjustSourceMapPaths = async () => {
-  try {
-    // Update the source map file
-    const mapContent = await fs.promises.readFile(outMapFile, "utf8");
-    const sourceMap = JSON.parse(mapContent);
-
-    // Adjust the sources to be relative to /dist
-    sourceMap.sources = sourceMap.sources.map((source) => {
-      // Remove any existing path prefix and add /dist
-      const filename = source.split("/").pop();
-      return `/dist/src/${filename}`;
-    });
-
-    await fs.promises.writeFile(outMapFile, JSON.stringify(sourceMap));
-
-    // Update the sourceMappingURL in the JS file
-    const jsContent = await fs.promises.readFile(outFile, "utf8");
-    const updatedJsContent = jsContent.replace(/\/\/# sourceMappingURL=(.+)$/m, "//# sourceMappingURL=/dist/nav-states.js.map");
-    await fs.promises.writeFile(outFile, updatedJsContent);
-
-    console.log(`📍 Source map paths and sourceMappingURL updated to be relative to /dist`);
-  } catch (error) {
-    console.error(`❌ Error adjusting source map paths:`, error);
-  }
-};
-
 // Build configuration - always use production settings
 const buildOptions = {
   entryPoints: [entryPoint],
@@ -64,7 +37,7 @@ const buildOptions = {
   target: ["es2020"],
   outfile: outFile,
   sourcemap: true,
-  sourcesContent: false, // Don't include source contents in map
+  sourcesContent: true, // Include source contents in map
   metafile: true,
   define: {
     "process.env.NODE_ENV": '"production"', // Always set NODE_ENV to production
@@ -77,8 +50,6 @@ const buildWithStats = async (options) => {
   console.log(`📊 Original size: ${formatSize(originalSize)}`);
 
   const result = await build(options);
-  // Adjust source map paths after build
-  await adjustSourceMapPaths();
 
   const buildSize = fs.existsSync(outFile) ? fs.statSync(outFile).size : 0;
   const reduction = (((originalSize - buildSize) / originalSize) * 100).toFixed(2);
@@ -100,7 +71,6 @@ if (isWatchMode) {
           buildWithStats(buildOptions);
         }
       },
-      pattern: ["src/**/*.js"], // Watch all JS files in src directory
     },
   });
 
