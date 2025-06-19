@@ -85,8 +85,8 @@ export class ResumeApplicationToast {
   }
 
   static async fetchVisitorData() {
+    const url = ResumeApplicationToast.prequalDomain + "/api/v1/visitors";
     try {
-      const url = ResumeApplicationToast.prequalDomain + "/api/v1/visitors";
       const response = await fetch(url, {
         method: "GET",
         mode: "cors",
@@ -96,13 +96,20 @@ export class ResumeApplicationToast {
           "Content-Type": "application/json",
         },
       });
-      return response.json();
+
+      if (!response.ok) {
+        const errorText = await response.text().catch(() => "could not read response body");
+        throw new Error(`HTTP error! status: ${response.status}, body: ${errorText}`);
+      }
+
+      const text = await response.text();
+      return text ? JSON.parse(text) : null;
     } catch (error) {
       Bugsnag.notify(error, {
         severity: "error",
         context: "ResumeApplicationToast.fetchVisitorData",
         metaData: {
-          url: ResumeApplicationToast.prequalDomain + "/api/v1/visitors",
+          url: url,
         },
       });
       console.error("Error fetching visitor data:", error);
@@ -122,7 +129,14 @@ export class ResumeApplicationToast {
           "Content-Type": "application/json",
         },
       });
-      return response.json();
+
+      if (!response.ok) {
+        const errorText = await response.text().catch(() => "could not read response body");
+        throw new Error(`HTTP error! status: ${response.status}, body: ${errorText}`);
+      }
+
+      const text = await response.text();
+      return text ? JSON.parse(text) : null;
     } catch (error) {
       Bugsnag.notify(error, {
         severity: "error",
